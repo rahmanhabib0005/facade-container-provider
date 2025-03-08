@@ -2,8 +2,10 @@
 
 use App\Facades\AdminAIText;
 use App\Facades\UserAIText;
+use App\Models\Sale;
 use App\Services\AdminGetAIText;
 use App\Services\UserGetAIText;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -29,5 +31,58 @@ Route::get('/get-service', function () {
     /**
      * Now we will use aliases within facade for the services and it should work like static methods
      */
-    return AdminAIText::getAdminText() .'<br>'. UserAIText::getUserText();
+    return AdminAIText::getAdminText() . '<br>' . UserAIText::getUserText();
+});
+
+// Route::get('/test', function () {
+//     $fieldMap = [
+//         "Region" => 0,
+//         "Country" => 1,
+//         "ItemType" => 2,
+//         "SalesChannel" => 3,
+//         "OrderPriority" => 4,
+//         "OrderDate" => 5,
+//         "OrderID" => 6,
+//         "ShipDate" => 7,
+//         "UnitsSold" => 8,
+//         "UnitPrice" => 9,
+//         "UnitCost" => 10,
+//         "TotalRevenue" => 11,
+//         "TotalCost" => 12,
+//         "TotalProfit" => 13,
+//     ];
+
+//     // Open the file for reading
+//     $fileStream = fopen(public_path('1M.csv'), 'r');
+
+//     $skipHeader = true;
+//     $data = [];
+//     while (($line = fgetcsv($fileStream)) !== false) {
+//         if ($skipHeader) {
+//             // Skip the header
+//             $skipHeader = false;
+//             continue;
+//         }
+
+//         $data[] = [
+//             "Region" => $line[$fieldMap["Region"]],
+//             "Country" => $line[$fieldMap["Country"]],
+//             "ItemType" => $line[$fieldMap["ItemType"]],
+//             "SalesChannel" => $line[$fieldMap["SalesChannel"]],
+//             "OrderPriority" => $line[$fieldMap["OrderPriority"]],
+//             "OrderDate" => $line[$fieldMap["OrderDate"]],
+//             "OrderID" => $line[$fieldMap["OrderID"]],
+//             "ShipDate" => $line[$fieldMap["ShipDate"]],
+//             "UnitsSold" => $line[$fieldMap["UnitsSold"]],
+//             "UnitPrice" => $line[$fieldMap["UnitPrice"]],
+//             "UnitCost" => $line[$fieldMap["UnitCost"]],
+//             "TotalRevenue" => $line[$fieldMap["TotalRevenue"]],
+//             "TotalCost" => $line[$fieldMap["TotalCost"]],
+//             "TotalProfit" => $line[$fieldMap["TotalProfit"]],
+//         ];
+//     }
+// });
+
+Route::get('/test', function () {
+    dd(Sale::count());
 });
